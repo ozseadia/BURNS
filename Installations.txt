@@ -1,0 +1,12 @@
+pip install numpy
+pip install PyPDF2
+pip install Pillow
+pip install selenium
+pip install tensorflow
+
+https://github.com/mstamy2/PyPDF2/blob/master/Scripts/pdf-image-extractor.py
+
+https://towardsdatascience.com/the-easiest-way-to-run-python-in-google-cloud-illustrated-d307c9e1651c
+
+https://towardsdatascience.com/image-scraping-with-python-a96feda8af2d
+
