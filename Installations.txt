@@ -10,3 +10,4 @@ https://towardsdatascience.com/the-easiest-way-to-run-python-in-google-cloud-ill
 
 https://towardsdatascience.com/image-scraping-with-python-a96feda8af2d
 
+streamlit run G:\Oz\fiveer\Dani_Velinchick\Burns\GUI.py
