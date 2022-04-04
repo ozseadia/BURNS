@@ -10,7 +10,11 @@ import pandas as pd
 import numpy as np
 import os
 import Scraping_Google_Images.google_image_scraping_script as GIS
+import PDF_Scraping.PDF_Images_Scraping as PIS
 import sys 
+import tkinter as tk
+from tkinter import filedialog
+import glob
 Path=os.path.dirname(__file__)
 sys.path.append(Path)
 CurrentPath=__file__
@@ -47,7 +51,32 @@ class Scarping :
             
    def List_of_PDFs(self):
         if self.Method =='List of PDFs':
-            st.title(self.Method)         
+            st.title(self.Method) 
+                # import libraries
+            root = tk.Tk()
+            root.withdraw()
+            
+            # Make folder picker dialog appear on top of other windows
+            root.wm_attributes('-topmost', 1)
+            
+            # Folder picker button
+            st.title('Folder Picker')
+            st.write('Please select a folder:')
+            clicked = st.button('Folder Picker')
+            if clicked:
+                dirname = st.text_input('Selected folder:', filedialog.askdirectory(master=root))
+                pdf_files = glob.glob("%s/*.pdf" % dirname)
+                for file in pdf_files:
+                    images_path =os.path.join(self.MainPath,'dataset')
+                    new_abs_path = os.path.join(images_path, 
+                                                os.path.basename(file)[:-4])
+                    if not os.path.exists(new_abs_path):
+                        os.mkdir(new_abs_path)
+                    PIS.PDFs_Images_Extraction(file,new_abs_path)
+                    #do_your_stuff()
+                    
+                
+            
             
 A=Scarping(Method,CurrentPath)
 A.Google_Image()
