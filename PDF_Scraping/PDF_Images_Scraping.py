@@ -11,6 +11,11 @@ import sys
 import PyPDF2
 from PyPDF2 import PdfFileReader
 import os
+import PIL.Image as Image
+import io
+Path=os.path.join((os.path.split(os.path.dirname(os.path.abspath(__file__))))[0],'Avoid_duplicates')
+sys.path.append(Path)
+import Avoid_duplicates as AD
 
 
 
@@ -50,13 +55,23 @@ def PDFs_Images_Extraction(pdf_path,Images_Dir):
             continue        
         
         img = pdf[x:y]
-    
+        print('OZ')
+        print(type(img))
         img_counter = img_counter + 1
-        S=10 # file name length
-        image_file_name=os.path.join(Images_Dir,''.join(random.choices(string.ascii_letters + string.digits, k = S))) 
-        with open(image_file_name + "." + extension, "wb") as jpgfile:
-            jpgfile.write(img)
-            
+        try:
+            image = Image.open(io.BytesIO(img))
+            FlagSave=AD.FeatureExtractor().main(image)
+            print('Flage save %d',FlagSave)
+            if FlagSave :
+                S=10 # file name length
+                image_file_name=os.path.join(Images_Dir,''.join(random.choices(string.ascii_letters + string.digits, k = S))) 
+                with open(image_file_name + "." + extension, "wb") as jpgfile:
+                    jpgfile.write(img)
+        except:
+            print('image was not saved')
+                        
+                
+'''
 pdf_path=r'G:\Oz\fiveer\Dani Velinchick\Burns\1302full.pdf'
 
 script_path = os.path.dirname(__file__)
@@ -65,3 +80,4 @@ script_path = os.path.dirname(__file__)
 new_abs_path = os.path.join(script_path, os.path.basename(pdf_path)[:-4])
 os.mkdir(new_abs_path)
 PDFs_Images_Extraction(pdf_path,new_abs_path)
+'''
