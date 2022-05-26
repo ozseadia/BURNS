@@ -16,15 +16,17 @@ import io
 Path=os.path.join((os.path.split(os.path.dirname(os.path.abspath(__file__))))[0],'Avoid_duplicates')
 sys.path.append(Path)
 import Avoid_duplicates as AD
+import MetaData as MD
 
 
 
 def PDFs_Images_Extraction(pdf_path,Images_Dir):
-
+    ad=AD.FeatureExtractor()
+    md=MD.MetaData((os.path.split(Images_Dir))[0])
     path=pdf_path
     with open(path, 'rb') as f:
         pdf = PdfFileReader(f)
-        info = pdf.getDocumentInfo()
+        PDFinfo = pdf.getDocumentInfo()
         number_of_pages = pdf.getNumPages()
     
     with open(path, "rb") as file:
@@ -60,13 +62,24 @@ def PDFs_Images_Extraction(pdf_path,Images_Dir):
         img_counter = img_counter + 1
         try:
             image = Image.open(io.BytesIO(img))
-            FlagSave=AD.FeatureExtractor().main(image)
+            FlagSave=ad.main(image)
             print('Flage save %d',FlagSave)
             if FlagSave :
-                S=10 # file name length
+                S=15 # file name length
                 image_file_name=os.path.join(Images_Dir,''.join(random.choices(string.ascii_letters + string.digits, k = S))) 
                 with open(image_file_name + "." + extension, "wb") as jpgfile:
                     jpgfile.write(img)
+                
+                Info=[(os.path.split(image_file_name))[1],
+                      str((image.size)),
+                      "",
+                     os.path.basename(Images_Dir),
+                      "",
+                      "",
+                      (os.path.split(pdf_path))[1],
+                      PDFinfo.title,
+                      PDFinfo.author]
+                md.MetaDataAppend(Info)
         except:
             print('image was not saved')
                         
