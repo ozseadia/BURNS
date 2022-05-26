@@ -9,12 +9,16 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import os
-import Scraping_Google_Images.google_image_scraping_script as GIS
+import Scraping_Google_Images.google_image_scraping_script1 as GIS
 import PDF_Scraping.PDF_Images_Scraping as PIS
+import Scraping_Google_Scholar.Scraping_Google_Scholar2 as SGS
+import Folder_Scraping.Image_Folder_Scraping as FS
 import sys 
 import tkinter as tk
 from tkinter import filedialog
 import glob
+
+
 Path=os.path.dirname(__file__)
 sys.path.append(Path)
 CurrentPath=__file__
@@ -22,7 +26,7 @@ st.title('Images DataBase Collection tool')
 
 # Some number in the range 0-23
 Method = st.sidebar.selectbox('Select Scraping Method', ['','Google Image','Google Scholar'
-                                                , 'List of PDFs'])
+                                                , 'List of PDFs','Images Folder'])
 class Scarping :
     # init method or constructor
    def __init__(self,Method,CurrentPath): 
@@ -41,13 +45,25 @@ class Scarping :
                     st.write('Not Empt')
                     queries=df['Key Words'].values.tolist()
                     st.write(self.Chrome_path)
-                    GIS.main(queries,int(n)+2,self.Chrome_path,self.MainPath)
+                    gis=GIS.google_image()
+                    #gis.main(queries,int(n)+2,self.Chrome_path,self.MainPath)
+                    gis.main(queries,int(n)+2)
                 
             
    #@st.cache         
    def Google_Scholar(self):
         if self.Method =='Google Scholar':
             st.title(self.Method)
+            n=st.text_input('Maximum number of articles')
+            List_Search_Keys = st.file_uploader("Upload List", type=["csv","xlsx"])
+            if  List_Search_Keys:
+                df = pd.read_excel(List_Search_Keys)
+                if not (df['Key Words']).empty:
+                    st.write('Not Empt')
+                    queries=df['Key Words'].values.tolist()
+                    gs=SGS.Scraping_Google_Scholar()
+                    for q in queries :                        
+                        gs.main(q,int(n))
             
    def List_of_PDFs(self):
         if self.Method =='List of PDFs':
@@ -75,13 +91,41 @@ class Scarping :
                     PIS.PDFs_Images_Extraction(file,new_abs_path)
                     #do_your_stuff()
                     
-                
-            
+   def Images_Folder(self):
+       if self.Method =='Images Folder':
+           st.title(self.Method) 
+               # import libraries
+           root = tk.Tk()
+           root.withdraw()
+           
+           # Make folder picker dialog appear on top of other windows
+           root.wm_attributes('-topmost', 1)
+           
+           # Folder picker button
+           st.title('Folder Picker')
+           st.write('Please select a folder:')
+           Label=st.text_input('Label : abuse:1 not:abuse 0')
+           clicked = st.button('Folder Picker')
+           
+           if clicked:
+               dirname = st.text_input('Selected folder:', filedialog.askdirectory(master=root))
+               images_path =os.path.join(self.MainPath,'dataset')
+               new_abs_path = os.path.join(images_path, 
+                                            os.path.basename(dirname))
+               if not os.path.exists(new_abs_path):
+                   os.mkdir(new_abs_path)    
+               FS.main(dirname,new_abs_path,Label)
+
+                   #do_your_stuff()
+    
+               
+      
             
 A=Scarping(Method,CurrentPath)
 A.Google_Image()
 A.Google_Scholar()
 A.List_of_PDFs()
+A.Images_Folder()
 st.stop()
 
 
