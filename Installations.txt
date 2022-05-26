@@ -3,6 +3,18 @@ pip install PyPDF2
 pip install Pillow
 pip install selenium
 pip install tensorflow
+pip install bs4
+pip install lxml
+pip install wget
+pip install PyAutoGUI
+
+pip install pydub
+pip install ffmpeg
+pip install SpeechRecognition
+pip install onnx
+pip install onnx-tf
+pip install tensorflow-probability
+
 
 https://github.com/mstamy2/PyPDF2/blob/master/Scripts/pdf-image-extractor.py
 
@@ -11,3 +23,32 @@ https://towardsdatascience.com/the-easiest-way-to-run-python-in-google-cloud-ill
 https://towardsdatascience.com/image-scraping-with-python-a96feda8af2d
 
 streamlit run G:\Oz\fiveer\Dani_Velinchick\Burns\GUI.py
+
+trained CNN model - 
+https://zenodo.org/record/3842237#.YmQw7oVBy5d
+
+https://github.com/LorisNanni/Fair-comparison-of-skin-detection-approaches-on-publicly-available-datasets-
+
+
+
+n2sebyJi
+
+https://primo.bgu.ac.il/discovery/search?query=title,exact,%20When%20are%20burns%20not%20accidental%20&tab=Everything&search_scope=MyInst_and_CI&vid=972BGU_INST:972BGU&lang=en&mode=advanced&offset=0&pcAvailability=false
+
+
+https://primo.bgu.ac.il/discovery/search?query=title,exact,Skeletal%20surveys%20in%20children%20with%20burns%20caused%20by%20child%20abuse,AND&tab=Everything&search_scope=MyInst_and_CI&vid=972BGU_INST:972BGU&lang=en&mode=advanced&offset=0&pcAvailability=false
+
+
+https://stackoverflow.com/questions/27869225/python-clicking-a-button-on-a-webpage
+
+
+
+/html/body/div/div[10]/div[2]/div[3]/div[2]/div[1]/div[1]/div/div/a[1]
+
+/html/body/div/div[10]/div[2]/div[3]/div[2]/div[1]/div[1]/div/div/a[2]
+
+
+
+/html/body/div/div[10]/div[2]/div[3]/div[2]/div[2]/div[1]/div/div/a[2]
+
+//*[@id="gs_res_ccl_mid"]/div[2]/div[1]/div/div/a[2]
