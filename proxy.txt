@@ -1,0 +1,8 @@
+User name:
+XXXXXXXX
+password:
+XXXXXXXX
+PROXY_HOST: 
+132.72.138.1
+PROXY_PORT:
+8081
