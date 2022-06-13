@@ -102,6 +102,7 @@ class google_image():
         image_count = 0
         results_start = 0
         error_clicks = 0
+        Flag_stop=0
         while (image_count < max_links_to_fetch) & (error_clicks <50): # error clicks to stop when there are no more results to show by Google Images. You can tune the number
             time.sleep((5*random.random()))
             scroll_to_end(wd)
@@ -113,6 +114,9 @@ class google_image():
             number_results = len(thumbnail_results)
             
             print(f"Found: {number_results} search results. Extracting links from {results_start}:{number_results}")
+            Flag_stop+=1
+            if Flag_stop >5:
+                break
             for img in thumbnail_results[results_start:max_links_to_fetch]:
                 # try to click every thumbnail such that we can get the real image behind it
                 print("Total Errors till now:", error_clicks)
